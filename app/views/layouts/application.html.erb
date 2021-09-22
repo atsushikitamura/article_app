@@ -10,6 +10,29 @@
   </head>
 
   <body>
+    <header class="">
+      <div class="">
+        <h1 class=""><a href="/">ArticleApp</a></h1>
+        <% if user_signed_in? %>
+          <div class="">
+            <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+            <% if current_user.admin? %>
+              <%= link_to "投稿する", class: "" %>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="">
+            <%= link_to "ログイン", new_user_session_path, class: "" %>
+            <%= link_to "新規登録", new_user_registration_path, class: "" %>
+          </div>
+        <% end %>
+      </div>
+    </header>
     <%= yield %>
+    <footer>
+      <p>
+        Copyright ArticleApp 2021.
+      </p>
+    </footer>
   </body>
 </html>
