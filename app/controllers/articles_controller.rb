@@ -19,6 +19,10 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def show
+    @article = Article.find(params[:id])
+  end
+
   private
   def not_admin
     redirect_to root_path unless current_user.admin?
