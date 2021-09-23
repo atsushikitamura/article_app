@@ -34,6 +34,11 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def destroy
+    article = Article.find(params[:id])
+    redirect_to root_path if article.destroy
+  end
+
   private
   def not_admin
     redirect_to root_path unless current_user.admin?
