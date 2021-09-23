@@ -5,7 +5,7 @@
         <span><%= image_tag 'arrow_top.png' %></span>
         <ul class="">
           <li>
-            <%= link_to '編集' %>
+            <%= link_to '編集', edit_article_path(@article.id) %>
           </li>
           <li>
             <%= link_to '削除' %>

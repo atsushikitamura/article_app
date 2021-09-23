@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
-  before_action :not_admin, only: [:new, :create]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :not_admin, except: [:index, :show]
+  before_action :set_article, only: [:show, :edit, :update]
 
   def index
     @articles = Article.includes(:user).order("created_at DESC")
@@ -20,7 +21,17 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
+  end
+
+  def edit
+  end
+
+  def update
+    if @article.update(article_params)
+      redirect_to action: :show
+    else 
+      render :edit
+    end
   end
 
   private
@@ -30,5 +41,9 @@ class ArticlesController < ApplicationController
 
   def article_params
     params.require(:article).permit(:image, :title, :content).merge(user_id: current_user.id)
+  end
+
+  def set_article
+    @article = Article.find(params[:id])
   end
 end
