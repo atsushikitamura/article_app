@@ -16,7 +16,6 @@
 
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
-| image              | text       | null: false                    |
 | title              | string     | null: false                    |
 | content            | text       | null: false                    |
 | user               | references | null: false, foreign_key: true |
@@ -25,6 +24,7 @@
 
 - belongs_to :user
 - has_many :comments
+- has_one_attached :image
 
 ## comments テーブル
 
