@@ -1,6 +1,6 @@
 <div class="">
   <div class="">
-    <div class=""><%= @article.image %>
+    <div class=""><%= image_tag @article.image %>
       <% if user_signed_in? && current_user.admin? %>
         <div class="">
           <span><%= image_tag 'arrow_top.png' %></span>

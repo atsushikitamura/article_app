@@ -1,7 +1,10 @@
 <div class="">
   <% @articles.each do |article| %>
     <div class="">
-      <div class=""><%= link_to article.image, article_path(article.id) %>
+      <div class="">
+        <%= link_to article_path(article.id) do %>
+          <%= image_tag article.image %>
+        <% end %>
         <span class=""><%= article.user.name %></span>
       </div>
       <p><%= article.title %></p>
