@@ -36,6 +36,9 @@
           <strong><%= comment.user.name %>：</strong>
           <%= comment.text %>
         </p>
+        <% if current_user == comment.user %>
+          <%= link_to '削除', article_comment_path(@article, comment), method: :delete %>
+        <% end %>
       <% end %>
     </div>
   </div>
