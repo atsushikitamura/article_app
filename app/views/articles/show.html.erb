@@ -22,24 +22,26 @@
   <%# コメント %>
   <div class="">
     <% if user_signed_in? && !current_user.admin %>
-      <%= form_with(model: [@article, @comment], local: true) do |f| %>
+      <%= form_with(model: [@article, @comment]) do |f| %>
         <%= f.text_area :text, placeholder: "コメントする", rows: "2" %>
         <%= f.submit "SEND" %>
       <% end %>
     <% elsif !user_signed_in? %>
       <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
     <% end %>
-    <div class="">
+    <div>
       <h4>＜コメント一覧＞</h4>
-      <% @comments.each do |comment| %>
-        <p>
-          <strong><%= comment.user.name %>：</strong>
-          <%= comment.text %>
-        </p>
-        <% if current_user == comment.user %>
-          <%= link_to '削除', article_comment_path(@article, comment), method: :delete %>
+      <div id="comments">
+        <% @comments.each do |comment| %>
+          <p>
+            <strong><%= comment.user.name %>：</strong>
+            <%= comment.text %>
+          </p>
+          <% if current_user == comment.user %>
+            <%= link_to '削除', article_comment_path(@article, comment), method: :delete %>
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>
