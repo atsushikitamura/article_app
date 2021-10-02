@@ -22,10 +22,7 @@
   <%# コメント %>
   <div class="">
     <% if user_signed_in? && !current_user.admin %>
-      <%= form_with(model: [@article, @comment]) do |f| %>
-        <%= f.text_area :text, placeholder: "コメントする", rows: "2" %>
-        <%= f.submit "SEND" %>
-      <% end %>
+      <%= render partial: "form", locals: { article: @article, comment: @comment, value: 'SEND'} %>
     <% elsif !user_signed_in? %>
       <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
     <% end %>
@@ -33,13 +30,16 @@
       <h4>＜コメント一覧＞</h4>
       <div id="comments">
         <% @comments.each do |comment| %>
-          <p>
+          <div id="comment-<%= comment.id %>">
             <strong><%= comment.user.name %>：</strong>
-            <%= comment.text %>
-          </p>
-          <% if current_user == comment.user %>
-            <%= link_to '削除', article_comment_path(@article, comment), method: :delete %>
-          <% end %>
+            <span id="text-<%= comment.id %>"><%= comment.text %></span>
+            <div>
+              <% if current_user == comment.user %> 
+                <%= link_to '編集', edit_article_comment_path(@article, comment), remote: true %>
+                <%= link_to '削除', article_comment_path(@article, comment), method: :delete, remote: true %>
+              <% end %>
+            </div>
+          </div>
         <% end %>
       </div>
     </div>
