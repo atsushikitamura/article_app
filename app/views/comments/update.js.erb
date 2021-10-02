@@ -1,0 +1,7 @@
+formValue = document.getElementById('comment_text').value;
+if (formValue != '') {
+  document.getElementById('text-<%= @comment.id %>').innerHTML = formValue;
+
+  var form = document.getElementById('form');
+  form.outerHTML = '<%= j(render partial: "articles/form", locals: { article: @article, comment: Comment.new, value: 'SEND'}) %>';
+};
