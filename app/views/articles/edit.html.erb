@@ -6,8 +6,8 @@
 
       <div class="post-column">
         <%= f.file_field :image, id: "post-image" %>
-        <%= f.text_field :title, placeholder: "title", id: "post-title" %>
-        <%= f.text_area :content, placeholder: "text", id: "post-text" %>
+        <%= f.text_field :title, placeholder: "Title", id: "post-title" %>
+        <%= f.text_area :content, placeholder: "Content", id: "post-text" %>
         <%= f.submit "更新する", id: "post-btn" %>
       </div>
     <% end %>
