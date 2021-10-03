@@ -1,13 +1,15 @@
-<div class="">
-  <% @articles.each do |article| %>
-    <div class="">
-      <div class="">
+<div class="art-parents">
+  <h3>＜最新の投稿＞</h3>
+  <div>
+    <% @articles.each do |article| %>
+      <div class="art-main">
+        <div class="post-day">投稿日:<%= l article.created_at %></div>
         <%= link_to article_path(article.id) do %>
-          <%= image_tag article.image %>
+          <%= image_tag article.image.variant(resize: '800x1500') %>
         <% end %>
-        <span class=""><%= article.user.name %></span>
+        <div class="edit-user">最終更新:<strong><%= article.user.name %></strong></div>
+        <%= article.title %>
       </div>
-      <p><%= article.title %></p>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>

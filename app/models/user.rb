@@ -10,5 +10,5 @@ class User < ApplicationRecord
   with_options presence: true do
     validates :name
   end
-  validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/, message: 'is invalid. Input half-width alphanumeric' }
+  validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/, message: 'は半角英数字混合で入力してください' }
 end

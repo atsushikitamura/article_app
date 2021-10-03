@@ -1,39 +1,46 @@
-<div class="">
-  <div class="">
-    <div class=""><%= image_tag @article.image %>
-      <% if user_signed_in? && current_user.admin? %>
-        <div class="">
-          <span><%= image_tag 'arrow_top.png' %></span>
-          <ul class="">
-            <li>
-              <%= link_to '編集', edit_article_path(@article.id) %>
-            </li>
-            <li>
-              <%= link_to '削除', article_path(@article.id), method: :delete %>
-            </li>
-          </ul>
+<div class="outer">
+  <div class="article-parents">
+    <div class="article-child">
+      <div class="article-show">
+        <div class="post-day">
+          投稿日:<%= l @article.created_at %>
         </div>
-      <% end %>
-      <span class=""><%= @article.user.name %></span>
+        <%= image_tag @article.image.variant(resize: '850x1500') %>
+        <div class="admin-btn">
+          <% if user_signed_in? && current_user.admin? %>
+            <%= link_to '編集', edit_article_path(@article.id) %>
+            <%= link_to '削除', article_path(@article.id), method: :delete %>
+          <% end %>
+        </div>
+        <div class="edit-user">
+          最終更新:<strong><%= @article.user.name %></strong>
+        </div>
+        <strong><%= @article.title %></strong>
+      </div>
     </div>
-    <p><%= @article.title %></p>
-    <div class=""><%= @article.content %></div>
-  </div>
-  <%# コメント %>
-  <div class="">
-    <% if user_signed_in? && !current_user.admin %>
-      <%= render partial: "form", locals: { article: @article, comment: @comment, value: 'SEND'} %>
-    <% elsif !user_signed_in? %>
-      <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
-    <% end %>
+    <div class="article-text">
+      <%= @article.content %>
+    </div>
+    <%# コメント %>
+    <div class="comment-parents">
+      <div class="comment-form">
+        <% if user_signed_in? && !current_user.admin %>
+          <%= render partial: "form", locals: { article: @article, comment: @comment, value: 'SEND'} %>
+        <% elsif !user_signed_in? %>
+          <strong>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</strong>
+        <% end %>
+      </div>
+    </div>
     <div>
       <h4>＜コメント一覧＞</h4>
       <div id="comments">
         <% @comments.each do |comment| %>
-          <div id="comment-<%= comment.id %>">
-            <strong><%= comment.user.name %>：</strong>
-            <span id="text-<%= comment.id %>"><%= comment.text %></span>
-            <div>
+          <div id="comment-<%= comment.id %>", class="comment">
+            <div class="comment-user">
+              <strong><%= comment.user.name %>：</strong>
+              <span id="text-<%= comment.id %>", class="comment-text"><%= comment.text %></span>
+            </div>
+            <div class="self-btn">
               <% if current_user == comment.user %> 
                 <%= link_to '編集', edit_article_comment_path(@article, comment), remote: true %>
                 <%= link_to '削除', article_comment_path(@article, comment), method: :delete, remote: true %>

@@ -1,0 +1,30 @@
+.comment-parents{
+  display: flex;
+  justify-content: center;
+}
+
+.comment-form{
+  margin-top: 70px;
+}
+
+.comment{
+  margin-bottom: 10px;
+}
+
+#form-text{
+  width: 650px;
+  height: 100px;
+  display: block;
+}
+
+.submit-btn, .self-btn{
+  text-align: right;
+}
+
+.comment-user{
+  display: flex;
+}
+
+.comment-text{
+  word-break: break-all;
+}

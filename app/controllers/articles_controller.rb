@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update]
 
   def index
-    @articles = Article.includes(:user).order("created_at DESC")
+    @articles = Article.includes(:user).order('created_at DESC')
   end
 
   def new
@@ -22,7 +22,7 @@ class ArticlesController < ApplicationController
 
   def show
     @comment = Comment.new
-    @comments = @article.comments.includes(:user).order("created_at DESC")
+    @comments = @article.comments.includes(:user).order('created_at DESC')
   end
 
   def edit
@@ -31,7 +31,7 @@ class ArticlesController < ApplicationController
   def update
     if @article.update(article_params)
       redirect_to action: :show
-    else 
+    else
       render :edit
     end
   end
@@ -42,6 +42,7 @@ class ArticlesController < ApplicationController
   end
 
   private
+
   def not_admin
     redirect_to root_path unless current_user.admin?
   end
