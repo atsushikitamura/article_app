@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :article do
-    title   {Faker::Lorem.sentence}
-    content {Faker::Lorem.paragraphs}
+    title   { Faker::Lorem.sentence }
+    content { Faker::Lorem.paragraphs }
     association :user
 
     after(:build) do |article|
