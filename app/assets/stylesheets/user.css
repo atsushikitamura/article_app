@@ -15,3 +15,7 @@
   text-align: center;
   margin-top: 40px;
 }
+
+#error_explanation{
+  margin-bottom: 15px;
+}
