@@ -10,22 +10,23 @@
   </head>
 
   <body>
-    <header class="">
-      <div class="">
-        <h1 class=""><a href="/">ArticleApp</a></h1>
-        <% if user_signed_in? %>
-          <div class="">
+    <header>
+      <div class="heading">
+        <h1 class="app-title"><a href="/">ArticleApp</a></h1>
+        <div class="heading-right">
+          <% if user_signed_in? %>
             <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
             <% if current_user.admin? %>
               <%= link_to "投稿する", new_article_path, class: "" %>
             <% end %>
-          </div>
-        <% else %>
-          <div class="">
+            <div class="now-user">
+              <strong>ようこそ <%= current_user.name %> さん</strong>
+            </div>
+          <% else %>
             <%= link_to "ログイン", new_user_session_path, class: "" %>
             <%= link_to "新規登録", new_user_registration_path, class: "" %>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
     </header>
     <%= yield %>

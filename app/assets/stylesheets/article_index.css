@@ -1,0 +1,69 @@
+/* リセットCSS */
+body {
+  font-size: 14px;
+  color: #333;
+  margin: 0 auto;
+}
+h1,h2,h3,h4,h5,h6,p {
+  padding: 10px 0;
+  margin: 0;
+}
+
+ul,li {
+  padding: 0;
+  margin: 0;
+}
+
+
+/* ヘッダー */
+header{
+  height: 100px;
+  background-color: #EDEDED;
+}
+
+.heading{
+  display: flex;
+  justify-content: space-between;
+}
+
+.app-title{
+  margin: 17px 0px 0px 70px;
+}
+
+.heading-right{
+  margin: 25px 140px 0px 0px;
+}
+
+.now-user{
+  margin-top: 10px;
+}
+
+
+/* index画面 */
+.art-parents{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.art-main{
+  margin-top: 40px;
+}
+
+.post-day{
+  text-align: right;
+}
+
+.edit-user{
+  text-align: right;
+}
+
+
+/* フッター */
+
+footer{
+  height: 50px;
+  background-color: #EDEDED;
+  text-align: center;
+  margin-top: 30px;
+}
