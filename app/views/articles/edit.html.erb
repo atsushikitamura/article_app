@@ -1,13 +1,15 @@
-<div class="">
-  <div class="">
-    <h3>編集する</h3>
+<div class="post-parents">
+  <div>
+    <h3>＜編集する＞</h3>
     <%= form_with model: @article, local: true do |f| %>
       <%= render 'shared/error_messages', model: f.object %>
 
-      <%= f.file_field :image, placeholder: "Image Url" %>
-      <%= f.text_field :title, placeholder: "title" %>
-      <%= f.text_area :content, placeholder: "text", rows: "10" %>
-      <%= f.submit "更新する" %>
+      <div class="post-column">
+        <%= f.file_field :image, id: "post-image" %>
+        <%= f.text_field :title, placeholder: "title", id: "post-title" %>
+        <%= f.text_area :content, placeholder: "text", id: "post-text" %>
+        <%= f.submit "更新する", id: "post-btn" %>
+      </div>
     <% end %>
   </div>
 </div>

@@ -50,17 +50,76 @@ header{
   margin-top: 40px;
 }
 
-.post-day{
+.post-day, .edit-user {
   text-align: right;
 }
 
-.edit-user{
+
+
+/* 詳細 */
+.outer{
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.article-parents{
+  width: 1000px;
+}
+
+.article-child{
+  display: flex;
+}
+
+.article-show{
+  margin-left: 20px;
+}
+
+.admin-btn{
   text-align: right;
+}
+
+.article-text{
+  word-break: break-all;
+  margin-top: 30px;
+}
+
+
+/* 新規投稿・編集 */
+.post-parents{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.post-column{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#post-image{
+  margin: 20px 0px;
+}
+
+#post-title{
+  height: 30px;
+  width: 800px;
+  margin-bottom: 20px;
+}
+
+#post-text{
+  height: 260px;
+  width: 800px;
+  margin-bottom: 20px;
+}
+
+#post-btn{
+  width: 450px;
 }
 
 
 /* フッター */
-
 footer{
   height: 50px;
   background-color: #EDEDED;

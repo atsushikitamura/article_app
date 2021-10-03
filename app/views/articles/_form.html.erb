@@ -1,7 +1,9 @@
 <%= form_with(model: [article, comment], id: 'form') do |f| %>
-  <%= f.text_area :text, placeholder: "コメントする", rows: "2" %>
-  <%= f.submit value %>
-  <% if value == '更新' %>
-    <%= link_to 'キャンセル', new_article_comment_path, remote: true %>
-  <% end %>
+  <%= f.text_area :text, placeholder: "コメントする", id: "form-text" %>
+  <div class="submit-btn">
+    <%= f.submit value %>
+    <% if value == '更新' %>
+      <%= link_to 'キャンセル', new_article_comment_path, remote: true %>
+    <% end %>
+  </div>
 <% end %>
