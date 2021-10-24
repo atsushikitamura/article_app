@@ -17,7 +17,7 @@ https://article-app-35862.herokuapp.com/
 ## DEMO
 
 #### トップページと詳細ページ(未ログイン)
-[![Image from Gyazo](https://i.gyazo.com/ec1624d196e603bc1c412e362d9fc8ef.gif)](https://gyazo.com/ec1624d196e603bc1c412e362d9fc8ef)
+[![Image from Gyazo](https://i.gyazo.com/155571c6b24e383c2832ce4dd443ad4f.gif)](https://gyazo.com/155571c6b24e383c2832ce4dd443ad4f)
 - トップページの画像をクリックすると詳細ページに遷移する
 - 未ログイン状態なので、詳細ページに「コメントするにはログインが必要です」の表示
 
