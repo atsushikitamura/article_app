@@ -10,6 +10,15 @@
         <%= f.text_area :content, placeholder: "Content", id: "post-text" %>
         <%= f.submit "更新する", id: "post-btn" %>
       </div>
+
+      <% @article.users.each do |user| %>
+        <input name="article[user_ids][]" type="hidden" value=<%= user.id %>>
+      <% end %>
+
+      <% unless @article.user_ids.include?(current_user.id) %>
+        <input name="article[user_ids][]" type="hidden" value=<%= current_user.id %>>
+      <% end %>
+
     <% end %>
   </div>
 </div>

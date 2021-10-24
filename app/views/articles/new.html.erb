@@ -10,6 +10,7 @@
         <%= f.text_area :content, placeholder: "Content", id: "post-text" %>
         <%= f.submit "投稿する", id: "post-btn" %>
       </div>
+      <input name="article[user_ids][]" type="hidden" value=<%= current_user.id %>>
     <% end %>
   </div>
 </div>

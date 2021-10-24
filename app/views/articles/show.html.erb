@@ -2,9 +2,7 @@
   <div class="article-parents">
     <div class="article-child">
       <div class="article-show">
-        <div class="post-day">
-          投稿日:<%= l @article.created_at %>
-        </div>
+        <div class="post-day"><%= l @article.created_at %></div>
         <%= image_tag @article.image.variant(resize: '850x1500') %>
         <div class="admin-btn">
           <% if user_signed_in? && current_user.admin? %>
@@ -13,7 +11,9 @@
           <% end %>
         </div>
         <div class="edit-user">
-          最終更新:<strong><%= @article.user.name %></strong>
+          <% @article.users.each do |user| %>
+            <strong><%= user.name %></strong>
+          <% end %>
         </div>
         <strong><%= @article.title %></strong>
       </div>

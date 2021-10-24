@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update]
 
   def index
-    @articles = Article.includes(:user).order('created_at DESC')
+    @articles = Article.includes(:users).order('created_at DESC')
   end
 
   def new
@@ -48,7 +48,7 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:image, :title, :content).merge(user_id: current_user.id)
+    params.require(:article).permit(:image, :title, :content, user_ids: [])
   end
 
   def set_article

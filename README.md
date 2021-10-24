@@ -1,4 +1,52 @@
-## users テーブル
+## 概要
+
+記事投稿アプリケーション。ユーザーは管理者ユーザーと一般ユーザーに別れている。管理者ユーザーは記事の投稿・編集・削除を行える。また、共同編集なども可能。対する一般ユーザーは記事に対するコメント投稿・編集・削除ができる。
+
+## 本番環境
+
+https://article-app-35862.herokuapp.com/
+
+管理者用テストアカウント(メールアドレス / パスワード)
+- sam@sam / samsam1
+- pra@pra / prapra1
+
+一般ユーザーテストアカウント
+- tesu@tesu / tesutesu1
+- john@john / johnjohn1
+
+## DEMO
+
+#### トップページと詳細ページ(未ログイン)
+[![Image from Gyazo](https://i.gyazo.com/ec1624d196e603bc1c412e362d9fc8ef.gif)](https://gyazo.com/ec1624d196e603bc1c412e362d9fc8ef)
+- トップページの画像をクリックすると詳細ページに遷移する
+- 未ログイン状態なので、詳細ページに「コメントするにはログインが必要です」の表示
+
+#### 新規登録(ログイン)ページ
+[![Image from Gyazo](https://i.gyazo.com/859353de4dc6600f4868899ae96c1891.gif)](https://gyazo.com/859353de4dc6600f4868899ae96c1891)
+
+#### 管理者ユーザーによる記事編集
+[![Image from Gyazo](https://i.gyazo.com/1404a76d125f97a96cdd72d11111f880.gif)](https://gyazo.com/1404a76d125f97a96cdd72d11111f880)
+- 管理者であれば異なるユーザーでも記事の編集(削除)ができる
+- 記事の編集に携わった管理者全員の名前が、記事右下に表示される
+- 管理者ユーザーでログインすると、コメント投稿欄が表示されない
+
+#### 一般ユーザーによるコメント非同期投稿・削除(上)と編集(下)
+[![Image from Gyazo](https://i.gyazo.com/572f299c1b0e1d0dc70ae90e59568ca7.gif)](https://gyazo.com/572f299c1b0e1d0dc70ae90e59568ca7)
+[![Image from Gyazo](https://i.gyazo.com/8b845086bfadf111c44224607b2b8d80.gif)](https://gyazo.com/8b845086bfadf111c44224607b2b8d80)
+- 編集ボタンを押した後、キャンセルを押すと編集状態から抜ける
+- 編集ボタン→更新を押すと、コメントが更新される。
+- 編集時にコメントを全て削除して更新ボタンを押しても、コメントが空にならない(元のまま)
+- 自分のコメントにのみ、編集・削除ボタンの表示
+
+## 利用方法
+
+- 管理者ユーザー①でログイン → 投稿するボタンを押し、適切に情報を入力し記事を投稿 → ログアウト
+- 一般ユーザー①でログイン → 投稿した記事をクリックし詳細ページへ遷移 → コメントの投稿・編集・削除を実行 → ログアウト
+- 管理者ユーザー②でログイン → 投稿した記事をクリックし詳細ページへ遷移 → 編集ボタンを押し、内容を編集して更新 → 削除ボタンを押す → ログアウト
+
+## DB設計
+
+### users テーブル
 
 | Column             | Type    | Options                     |
 | ------------------ | ------- | --------------------------- |
@@ -7,26 +55,39 @@
 | encrypted_password | string  | null: false                 |
 | admin              | boolean | null: false, default: false |
 
-### Association
+#### Association
 
-- has_many :articles
+- has_many :article_users
+- has_many :articles, through: :article_users
 - has_many :comments
 
-## articles テーブル
+### articles テーブル
 
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
 | title              | string     | null: false                    |
 | content            | text       | null: false                    |
-| user               | references | null: false, foreign_key: true |
 
-### Association
+#### Association
 
-- belongs_to :user
-- has_many :comments
+- has_many :article_users, dependent: :destroy
+- has_many :users, through: :article_users
+- has_many :comments, dependent: :destroy
 - has_one_attached :image
 
-## comments テーブル
+### article_users テーブル
+
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| article | references | null: false, foreign_key: true |
+| user    | references | null: false, foreign_key: true |
+
+#### Association
+
+- belongs_to :article
+- belongs_to :user
+
+### comments テーブル
 
 | Column    | Type       | Options                        |
 | --------- | ---------- | ------------------------------ |
@@ -34,48 +95,22 @@
 | user      | references | null: false, foreign_key: true |
 | article   | references | null: false, foreign_key: true |
 
-### Association
+#### Association
 
 - belongs_to :user
 - belongs_to :article
 
-## 概要
-
-記事投稿アプリケーション。ユーザーは管理者ユーザーと一般ユーザーに別れている。管理者ユーザーは記事の投稿・編集・削除を行える。一般ユーザーは記事に対するコメント投稿・編集・削除ができる。
-
-## 利用方法
-
-①一覧ページ・詳細ページはログイン不要
-
-②一般ユーザーは画面右上から新規登録もしくはログイン。管理者ユーザーは今回はseedファイルに登録済み。
-
-③一覧ページの画像をクリックすると詳細ページに遷移。ログインの有無、管理者か否かで表示が変わる部分がある。具体的には未ログイン状態であれば、「コメントするにはログインが必要です」の表示。一般ユーザーでログインすればコメント欄表示。管理者ユーザーであれば画像の右下に編集・削除ボタンの表示。
-
-④管理者であれば、記事の投稿者でなくても編集・削除が可能。
-
-⑤画面左上のアプリ名(ArticleApp)を押せば、一覧ページに遷移。
-
-## DEMO
-
-一覧ページと未ログイン状態での詳細ページ
-[![Image from Gyazo](https://i.gyazo.com/43c70669f7567fbd2beb4b98f9bcf180.gif)](https://gyazo.com/43c70669f7567fbd2beb4b98f9bcf180)
-
-新規登録(ログイン)ページ
-[![Image from Gyazo](https://i.gyazo.com/859353de4dc6600f4868899ae96c1891.gif)](https://gyazo.com/859353de4dc6600f4868899ae96c1891)
-
-管理者ユーザーでのログイン
-[![Image from Gyazo](https://i.gyazo.com/064a33baa0ebfdd8c2854d17fb678f7e.gif)](https://gyazo.com/064a33baa0ebfdd8c2854d17fb678f7e)
-
-一般ユーザーでのログイン(非同期によるコメント投稿・編集・削除機能)
-[![Image from Gyazo](https://i.gyazo.com/572f299c1b0e1d0dc70ae90e59568ca7.gif)](https://gyazo.com/572f299c1b0e1d0dc70ae90e59568ca7)
-[![Image from Gyazo](https://i.gyazo.com/8b845086bfadf111c44224607b2b8d80.gif)](https://gyazo.com/8b845086bfadf111c44224607b2b8d80)
-
 ## 工夫した点
 
-- rubocop,localesファイルのテンプレート以外は、全て手書きでの実装であること。
-- 不特定多数のユーザー利用を想定し、N + 1 問題を解決するための記述や、javascriptで非同期による機能を一部実装した。非同期での編集・削除機能は完全に未学習の範囲だったため、自ら調べ実装した。
-- 第三者が変更を加えることを想定し、管理者機能を導入した。一般ユーザーが投稿ページにアクセスできないよう、コントローラーで振り分けた。
+- 全て手書きのコードで実装した。
+- javascriptで非同期によるコメント機能を実装した。非同期での編集・削除機能は完全に未学習の範囲だったため、自ら調べて実装した
+- 第三者が変更を加えることを想定し、管理者機能を導入した。一般ユーザーが記事を見たときに、誰が記事の編集に携わったか判断できるよう、中間テーブルを用いて編集者を一覧で表示できるようにした。
 
-## 改善点など
+## 追加したい機能
 
-モーダルウィンドウを実装すれば、より分かりやすくコメントの編集を行える。また、第三者が記事の編集を行った場合に、投稿者に加えて追加表示すれば、記事に誰が関わったのか、ユーザーが判断しやすい。他、検索機能などもあれば、より使いやすいものになる。
+- モーダルウインドウなどを実装することで、ユーザーがより分かりやすくコメント編集できる
+- 記事検索機能
+
+#### 現在取り組んでいる機能
+
+- ユーザーのアイコン表示
