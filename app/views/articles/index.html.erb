@@ -3,11 +3,15 @@
   <div>
     <% @articles.each do |article| %>
       <div class="art-main">
-        <div class="post-day">投稿日:<%= l article.created_at %></div>
+        <div class="post-day"><%= l article.created_at %></div>
         <%= link_to article_path(article.id) do %>
           <%= image_tag article.image.variant(resize: '800x1500') %>
         <% end %>
-        <div class="edit-user">最終更新:<strong><%= article.user.name %></strong></div>
+        <div class="edit-user">
+          <% article.users.each do |user| %>
+            <strong><%= user.name %></strong>
+          <% end %>
+        </div>
         <%= article.title %>
       </div>
     <% end %>
