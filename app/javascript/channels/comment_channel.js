@@ -10,8 +10,11 @@ consumer.subscriptions.create("CommentChannel", {
   },
 
   received(data) {
-    const html = `<div id="comment-${data.content.id}">
-                    <strong>${data.name}：</strong> ${data.content.text}
+    const html = `<div id="comment-${data.content.id}", class="comment">
+                    <div class="comment-user">
+                      <strong>${data.name}：</strong>
+                      <span id="text-${data.content.id}", class="comment-text">${data.content.text}</span>
+                    </div>
                     <div class="self-btn">
                       <a data-remote="true" href="${data.content.article_id}/comments/${data.content.id}/edit">編集</a>
                       <a data-remote="true" rel="nofollow" data-method="delete" href="${data.content.article_id}/comments/${data.content.id}">削除</a>
